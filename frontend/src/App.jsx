@@ -5,6 +5,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import PageNotFound from "./Components/PageNotFound";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Dashboard from "./Components/Dashboard";
+import { Sidebar } from "./Components/SideBar";
+import { TopBar } from "./Components/TopBar";
+import { EmailList } from "./Components/EmailList";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -19,11 +22,23 @@ function App() {
     );
   };
 
+  const Layout = () => {
+    return (
+      <div className="flex">
+        <Sidebar />
+        <span >
+          <TopBar />
+          <EmailList />
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div>
       <Routes>
         <Route path="/login" element={googleOAuthWrapper()} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={Layout()} />
 
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="*" element={<PageNotFound />} />
