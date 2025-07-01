@@ -4,9 +4,9 @@ import Login from "./Components/Login";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PageNotFound from "./Components/PageNotFound";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Dashboard from "./Components/Dashboard";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +23,8 @@ function App() {
     <div>
       <Routes>
         <Route path="/login" element={googleOAuthWrapper()} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
