@@ -24,8 +24,8 @@ export function Sidebar() {
         <button className="text-gray-400 hover:text-white p-1 h-7 w-7 flex items-center ml-0 mt-2 justify-center bg-[#2c2c2c] rounded hover:cursor-pointer">
           <Plus className="h-4.5 w-4.5" />
         </button>
-        <button className="text-gray-400 hover:text-white p-1 h-8 w-8 ml-14 mt-2 flex items-center justify-center">
-          <MoreHorizontal className="h-4 w-4" />
+        <button className="text-gray-400 hover:text-white p-1 h-8 w-8 ml-20 hover:cursor-pointer hover:bg-[#2c2c2c] rounded mt-2 flex items-center justify-center">
+          <MoreHorizontal className="h-5.5 w-5.5" />
         </button>
       </div>
       {/* User Profile */}
@@ -54,9 +54,9 @@ export function Sidebar() {
           Core
         </h4>
         <nav className="space-y-1">
-          <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+          <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded ml">
             <div className="flex items-center">
-              <Inbox className="h-3 w-3 mr-2" />
+              <Inbox className="h-3 w-3 mr-4" />
               Inbox
             </div>
             <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
@@ -64,11 +64,11 @@ export function Sidebar() {
             </span>
           </button>
           <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-            <FileText className="h-3 w-3 mr-2" />
+            <FileText className="h-3 w-3 mr-4" />
             Drafts
           </button>
           <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-            <Send className="h-3 w-3 mr-2" />
+            <Send className="h-3 w-3 mr-4" />
             Sent
           </button>
         </nav>
@@ -81,12 +81,12 @@ export function Sidebar() {
         </h4>
         <nav className="space-y-1">
           <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-            <Archive className="h-3 w-3 mr-2" />
+            <Archive className="h-3 w-3 mr-4" />
             Archive
           </button>
           <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
             <div className="flex items-center">
-              <AlertTriangle className="h-3 w-3 mr-2" />
+              <AlertTriangle className="h-3 w-3 mr-4" />
               Spam
             </div>
             <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
@@ -95,7 +95,7 @@ export function Sidebar() {
           </button>
           <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
             <div className="flex items-center">
-              <Trash2 className="h-3 w-3 mr-2" />
+              <Trash2 className="h-3 w-3 mr-4" />
               Bin
             </div>
             <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
@@ -120,15 +120,15 @@ export function Sidebar() {
       {/* Bottom Actions */}
       <div className="mt-16 p-4  space-y-1">
         <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-          <Phone className="h-3 w-3 mr-2" />
+          <Phone className="h-3 w-3 mr-4" />
           Live Support
         </button>
         <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-          <MessageSquare className="h-3 w-3 mr-2" />
+          <MessageSquare className="h-3 w-3 mr-4" />
           Feedback
         </button>
         <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-          <Settings className="h-3 w-3 mr-2" />
+          <Settings className="h-3 w-3 mr-4" />
           Settings
         </button>
       </div>

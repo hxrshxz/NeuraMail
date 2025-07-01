@@ -24,7 +24,8 @@ function App() {
 
   const Layout = () => {
     return (
-      <div className="flex">
+      
+      <div className="flex ">
         <Sidebar />
         <span >
           <TopBar />
