@@ -1,0 +1,137 @@
+import {
+  Inbox,
+  Edit3,
+  Send,
+  Archive,
+  Trash2,
+  AlertTriangle,
+  Plus,
+  Phone,
+  MessageSquare,
+  Settings,
+  CheckCircle,
+  FileText,
+  MoreHorizontal,
+} from "lucide-react";
+
+export function Sidebar() {
+  return (
+    <div className="w-54 bg-[#111113] flex flex-col h-full ">
+      <div className="flex items-center space-x-2">
+        <button className="hover:text-white p-1 h-6 w-6 flex items-center ml-4 mt-2 justify-center bg-[#2c2c2c] rounded hover:cursor-pointer">
+          <Plus className="h-0 w-0" />
+        </button>
+        <button className="text-gray-400 hover:text-white p-1 h-7 w-7 flex items-center ml-0 mt-2 justify-center bg-[#2c2c2c] rounded hover:cursor-pointer">
+          <Plus className="h-4.5 w-4.5" />
+        </button>
+        <button className="text-gray-400 hover:text-white p-1 h-8 w-8 ml-14 mt-2 flex items-center justify-center">
+          <MoreHorizontal className="h-4 w-4" />
+        </button>
+      </div>
+      {/* User Profile */}
+      <div className="p-4">
+        <div className="mb-3">
+          <h3 className="font-medium text-white text-sm">Harsh Mastic</h3>
+          <p className="text-xs text-[#888888]">harshmastic@gmail.com</p>
+        </div>
+        <div className="flex items-center space-x-2 mb-4">
+          <CheckCircle className="h-3 w-3 text-blue-500" />
+          <span className="text-xs text-blue-500 font-medium">
+            GET VERIFIED
+          </span>
+        </div>
+
+        {/* New Email Button */}
+        <button className="w-full bg-[#202020] hover:bg-[#202020] text-white text-sm h-8 flex items-center justify-start px-3 rounded">
+          <Edit3 className="h-3 w-3 mr-2" />
+          New email
+        </button>
+      </div>
+
+      {/* Core Section */}
+      <div className="px-4 mb-4 mt-4">
+        <h4 className="text-xs font-medium text-[#888888] uppercase tracking-wider mb-2 ml-2">
+          Core
+        </h4>
+        <nav className="space-y-1">
+          <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <div className="flex items-center">
+              <Inbox className="h-3 w-3 mr-2" />
+              Inbox
+            </div>
+            <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
+              7209
+            </span>
+          </button>
+          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <FileText className="h-3 w-3 mr-2" />
+            Drafts
+          </button>
+          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <Send className="h-3 w-3 mr-2" />
+            Sent
+          </button>
+        </nav>
+      </div>
+
+      {/* Management Section */}
+      <div className="px-4 mb-4">
+        <h4 className="text-xs font-medium text-[#888888] uppercase tracking-wider mb-2">
+          Management
+        </h4>
+        <nav className="space-y-1">
+          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <Archive className="h-3 w-3 mr-2" />
+            Archive
+          </button>
+          <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <div className="flex items-center">
+              <AlertTriangle className="h-3 w-3 mr-2" />
+              Spam
+            </div>
+            <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
+              0
+            </span>
+          </button>
+          <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <div className="flex items-center">
+              <Trash2 className="h-3 w-3 mr-2" />
+              Bin
+            </div>
+            <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
+              0
+            </span>
+          </button>
+        </nav>
+      </div>
+
+      {/* Labels Section */}
+      <div className="px-4 mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="text-xs font-medium text-[#888888] uppercase tracking-wider ml-2">
+            Labels
+          </h4>
+          <button className="text-gray-400 hover:text-white p-0 h-4 w-4 flex items-center justify-center hover:cursor-pointer mr-2.5">
+            <Plus className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom Actions */}
+      <div className="mt-16 p-4  space-y-1">
+        <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+          <Phone className="h-3 w-3 mr-2" />
+          Live Support
+        </button>
+        <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+          <MessageSquare className="h-3 w-3 mr-2" />
+          Feedback
+        </button>
+        <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+          <Settings className="h-3 w-3 mr-2" />
+          Settings
+        </button>
+      </div>
+    </div>
+  );
+}
