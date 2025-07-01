@@ -1,5 +1,6 @@
 const axios = require("axios");
 const User = require("../model/userModel");
+let access_token = "";
 
 const googleAuth = async (req, res) => {
   const { code } = req.query;
@@ -39,7 +40,11 @@ const googleAuth = async (req, res) => {
       await user.save();
     }
 
-    res.status(200).json({ message: "Login successful", user });
+    res.status(200).json({
+      message: "Login successful",
+      user,
+      access_token: data.access_token, // ✅ send it back!
+    });
   } catch (err) {
     console.error("Google Auth error:", err.response?.data || err.message);
     res
