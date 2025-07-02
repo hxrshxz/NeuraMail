@@ -1,4 +1,6 @@
-import { Search } from "lucide-react"
+import { Search } from "lucide-react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const emails = [
   {
@@ -14,9 +16,10 @@ const emails = [
     sender: "Heroku",
     subject: "Welcome to Heroku! Let's Build Something Amazing",
     time: "10:33 PM",
-    avatar: "H",
-    avatarColor: "bg-purple-500",
+    avatar: "G",
+    avatarColor: "bg-blue-500",
   },
+
   {
     id: 3,
     sender: "GitHub Education",
@@ -24,6 +27,15 @@ const emails = [
     time: "Jun 30",
     avatar: "G",
     avatarColor: "bg-gray-500",
+  },
+  {
+    id: 3,
+    sender: "GitHub Education",
+    subject: "Unlock summer wins — Copilot Agent, free laptops & more",
+    time: "Jun 30",
+
+    avatar: "H",
+    avatarColor: "bg-purple-500",
   },
   {
     id: 4,
@@ -93,21 +105,59 @@ const emails = [
     avatar: "B",
     avatarColor: "bg-blue-600",
   },
-]
+  {
+    id: 12,
+    sender: "Brian",
+    subject: "harsh, Your Custom Plan #T751276301 is ready! ✓",
+    time: "Jun 30",
+    avatar: "B",
+    avatarColor: "bg-blue-600",
+  },
+];
 
 export function EmailList() {
+  const [emails, setEmails] = useState([]);
+
+  useEffect(() => {
+    const fetchEmailDetails = async () => {
+      const token = localStorage.getItem("access_token");
+
+      // 1. Get list of message IDs
+      const res = await axios.get(
+        "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            maxResults: 10,
+          },
+        }
+      );
+console.log(res.data)
+     const messageIDs = res.data.messages
+
+      setEmails(messageDetails);
+      console.log(messageDetails);
+    };
+
+    fetchEmailDetails();
+  }, []);
+
   return (
-    <div className="w-80 bg-[#1a1a1a] border-r border-[#404040] flex flex-col">
+    <div className="w-130 bg-[#1a1a1a] border-r border-[#404040] flex flex-col">
       {/* Search Bar */}
       <div className="p-3 border-b border-[#404040]">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input
             placeholder="Search & Filter"
-            className="w-full pl-10 pr-16 bg-[#202020] border border-[#555555] text-white placeholder-gray-400 h-8 text-sm rounded px-3 focus:outline-none focus:border-gray-400"
+            className="w-full pl-10 pr-16 bg-black-900 border border-[#555555] text-white placeholder-gray-400 h-8 text-sm rounded px-3 focus:outline-none focus:border-gray-400"
           />
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <span className="text-xs text-gray-400 border border-gray-500 px-1.5 py-0.5 rounded">Ctrl K</span>
+            <span className="text-xs text-gray-400 border border-gray-500 px-1.5 py-0.5 rounded">
+              Ctrl K
+            </span>
           </div>
         </div>
       </div>
@@ -128,18 +178,28 @@ export function EmailList() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center space-x-2">
-                    <h3 className="font-medium text-white truncate text-sm">{email.sender}</h3>
-                    {email.hasBlueIndicator && <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>}
-                    {email.hasOrangeIndicator && <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>}
+                    <h3 className="font-medium text-white truncate text-sm">
+                      {email.sender}
+                    </h3>
+                    {email.hasBlueIndicator && (
+                      <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                    )}
+                    {email.hasOrangeIndicator && (
+                      <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+                    )}
                   </div>
-                  <span className="text-xs text-[#888888] flex-shrink-0">{email.time}</span>
+                  <span className="text-xs text-[#888888] flex-shrink-0">
+                    {email.time}
+                  </span>
                 </div>
-                <p className="text-xs text-[#888888] truncate">{email.subject}</p>
+                <p className="text-xs text-[#888888] truncate">
+                  {email.subject}
+                </p>
               </div>
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }

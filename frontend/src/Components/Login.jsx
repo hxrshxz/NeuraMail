@@ -16,13 +16,20 @@ const Login = () => {
 
   const login = useGoogleLogin({
     flow: "auth-code",
+    scope: "https://mail.google.com", // <-- Add this line
+    access_type: "offline", // <-- Add this
+    prompt: "consent",
     onSuccess: async (response) => {
       const { code } = response;
       try {
         const res = await axios.get(
           `http://localhost:8080/auth/google?code=${code}`
         );
-        console.log("User:", res.data.user);
+        const { user, access_token } = res.data;
+        console.log("User:", user);
+        console.log("Access Token:", access_token);
+        localStorage.setItem("access_token", access_token);
+        // localStorage.removeItem("access_token");
         // Optionally navigate after login
         navigate("/dashboard");
       } catch (err) {
