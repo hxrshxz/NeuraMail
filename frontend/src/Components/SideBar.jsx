@@ -16,7 +16,7 @@ import {
 
 export function Sidebar() {
   return (
-    <div className="w-54 bg-[#111113] flex flex-col h-full ">
+    <div className="w-60 bg-[#111113] flex flex-col h-screen ">
       <div className="flex items-center space-x-2">
         <button className="hover:text-white p-1 h-6 w-6 flex items-center ml-4 mt-2 justify-center bg-[#2c2c2c] rounded hover:cursor-pointer">
           <Plus className="h-0 w-0" />
@@ -118,7 +118,7 @@ export function Sidebar() {
       </div>
 
       {/* Bottom Actions */}
-      <div className="mt-16 p-4  space-y-1">
+      <div className="mt-54 p-4   space-y-1">
         <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
           <Phone className="h-3 w-3 mr-4" />
           Live Support

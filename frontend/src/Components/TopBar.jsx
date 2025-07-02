@@ -2,7 +2,7 @@ import { RotateCcw } from "lucide-react"
 
 export function TopBar() {
   return (
-    <div className="bg-[#1a1a1a] border-b border-[#404040] px-4 py-2 flex items-center justify-between h-12">
+    <div className="bg-[#1a1a1a] border-b border-[#404040] px-4 py-2 flex items-center justify-between h-12 rounded-lg">
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-3">
           <div className="w-4 h-4 border border-gray-500 rounded"></div>
