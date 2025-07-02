@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Beaker, Search } from "lucide-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -122,7 +122,6 @@ export function EmailList() {
     const fetchEmailDetails = async () => {
       const token = localStorage.getItem("access_token");
 
-      // 1. Get list of message IDs
       const res = await axios.get(
         "https://gmail.googleapis.com/gmail/v1/users/me/messages",
         {
@@ -130,22 +129,44 @@ export function EmailList() {
             Authorization: `Bearer ${token}`,
           },
           params: {
-            maxResults: 10,
+            maxResults: 20,
           },
         }
       );
-console.log(res.data)
-     const messageIDs = res.data.messages
 
-      setEmails(messageDetails);
-      console.log(messageDetails);
+      const messageDetails = res.data.messages;
+
+      const messages = await Promise.all(
+        messageDetails.map(async (msg) => {
+          const res = await axios.get(
+            `https://gmail.googleapis.com/gmail/v1/users/me/messages/${msg.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          // console.log(res.data)
+          const subjectHeader = res.data.payload.headers.find(
+            (h) => h.name === "Subject"
+          );
+          const subject = subjectHeader?.value || "(No Subject)";
+
+          return {
+            id: msg.id,
+            subject,
+          };
+        })
+      );
+
+      setEmails(messages);
     };
 
     fetchEmailDetails();
   }, []);
 
   return (
-    <div className="w-130 bg-[#1a1a1a] border-r border-[#404040] flex flex-col">
+    <div className="w-140 bg-[#1a1a1a] flex flex-col">
       {/* Search Bar */}
       <div className="p-3 border-b border-[#404040]">
         <div className="relative">
@@ -167,7 +188,7 @@ console.log(res.data)
         {emails.map((email) => (
           <div
             key={email.id}
-            className="p-3 border-b border-[#404040] hover:bg-[#3a3a3a] cursor-pointer transition-colors"
+            className="p-3 hover:bg-[#3a3a3a] cursor-pointer transition-colors"
           >
             <div className="flex items-start space-x-3">
               <div
@@ -192,7 +213,7 @@ console.log(res.data)
                     {email.time}
                   </span>
                 </div>
-                <p className="text-xs text-[#888888] truncate">
+                <p className="text-gray-400 text-sm truncate">
                   {email.subject}
                 </p>
               </div>
@@ -203,3 +224,5 @@ console.log(res.data)
     </div>
   );
 }
+
+
