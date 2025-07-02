@@ -13,8 +13,55 @@ import {
   FileText,
   MoreHorizontal,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export function Sidebar() {
+  const [spam, setSpam] = useState(0);
+  const [bin, setBin] = useState(0);
+  const [inbox, setInbox] = useState(0);
+  const [sent, setSent] = useState(0);
+  const [drafts, setDrafts] = useState(0);
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+
+    const fetchLabelCount = async (labelId) => {
+      const res = await axios.get(
+        `https://gmail.googleapis.com/gmail/v1/users/me/labels/${labelId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return res.data.messagesTotal;
+    };
+
+    const fetchSpamAndBinCounts = async () => {
+      try {
+        const spamCount = await fetchLabelCount("SPAM");
+        setSpam(spamCount);
+
+        const binCount = await fetchLabelCount("TRASH");
+        setBin(binCount);
+
+        const inboxCount = await fetchLabelCount("INBOX");
+        setInbox(inboxCount);
+
+        const sentCount = await fetchLabelCount("SENT");
+        setSent(sentCount);
+
+        const draftsCount = await fetchLabelCount("DRAFT");
+        setDrafts(draftsCount);
+      } catch (error) {
+        console.error("Error fetching label counts:", error);
+      }
+    };
+
+    fetchSpamAndBinCounts();
+  }, []);
+
   return (
     <div className="w-60 bg-[#111113] flex flex-col h-screen ">
       <div className="flex items-center space-x-2">
@@ -60,16 +107,27 @@ export function Sidebar() {
               Inbox
             </div>
             <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
-              7209
+              {inbox}
             </span>
           </button>
-          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-            <FileText className="h-3 w-3 mr-4" />
-            Drafts
+          <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <div className="flex items-center">
+              <FileText className="h-3 w-3 mr-4" />
+              Drafts
+            </div>
+            <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
+              {drafts}
+            </span>
           </button>
-          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-            <Send className="h-3 w-3 mr-4" />
-            Sent
+
+          <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <div className="flex items-center">
+              <Send className="h-3 w-3 mr-4" />
+              Sent
+            </div>
+            <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
+              {sent}
+            </span>
           </button>
         </nav>
       </div>
@@ -90,13 +148,13 @@ export function Sidebar() {
               Spam
             </div>
             <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
-              0
+              {spam}
             </span>
           </button>
           <button className="w-full flex items-center justify-between text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
             <div className="flex items-center">
               <Trash2 className="h-3 w-3 mr-4" />
-              Bin
+              {bin}
             </div>
             <span className="bg-[#202020] text-gray-300 text-xs px-2 py-0.5 rounded">
               0
@@ -105,32 +163,34 @@ export function Sidebar() {
         </nav>
       </div>
 
-      {/* Labels Section */}
-      <div className="px-4 mb-4">
-        <div className="flex items-center justify-between mb-2">
-          <h4 className="text-xs font-medium text-[#888888] uppercase tracking-wider ml-2">
-            Labels
-          </h4>
-          <button className="text-gray-400 hover:text-white p-0 h-4 w-4 flex items-center justify-center hover:cursor-pointer mr-2.5">
-            <Plus className="h-4 w-4" />
+      <div className="flex flex-col justify-between h-full"> {/* Wrapping labels and bottom actions*/}
+        {/* Labels Section */}
+        <div className="px-4 mb-4">
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="text-xs font-medium text-[#888888] uppercase tracking-wider ml-2">
+              Labels
+            </h4>
+            <button className="text-gray-400 hover:text-white p-0 h-4 w-4 flex items-center justify-center hover:cursor-pointer mr-2.5">
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom Actions */}
+        <div className="flex flex-col p-4   space-y-1">
+          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <Phone className="h-3 w-3 mr-4" />
+            Live Support
+          </button>
+          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <MessageSquare className="h-3 w-3 mr-4" />
+            Feedback
+          </button>
+          <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
+            <Settings className="h-3 w-3 mr-4" />
+            Settings
           </button>
         </div>
-      </div>
-
-      {/* Bottom Actions */}
-      <div className="mt-54 p-4   space-y-1">
-        <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-          <Phone className="h-3 w-3 mr-4" />
-          Live Support
-        </button>
-        <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-          <MessageSquare className="h-3 w-3 mr-4" />
-          Feedback
-        </button>
-        <button className="w-full flex items-center justify-start text-[#cccccc] hover:text-white hover:bg-[#404040] h-8 text-sm px-2 rounded">
-          <Settings className="h-3 w-3 mr-4" />
-          Settings
-        </button>
       </div>
     </div>
   );
