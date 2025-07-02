@@ -8,6 +8,7 @@ import Dashboard from "./Components/Dashboard";
 import { Sidebar } from "./Components/SideBar";
 import { TopBar } from "./Components/TopBar";
 import { EmailList } from "./Components/EmailList";
+import {EmailView } from "./Components/EmailView";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -31,6 +32,7 @@ function App() {
           <TopBar />
           <EmailList />
         </span>
+        <EmailView />
       </div>
     );
   };
