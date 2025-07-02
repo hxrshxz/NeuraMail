@@ -8,7 +8,7 @@ import Dashboard from "./Components/Dashboard";
 import { Sidebar } from "./Components/SideBar";
 import { TopBar } from "./Components/TopBar";
 import { EmailList } from "./Components/EmailList";
-import {EmailView } from "./Components/EmailView";
+import { EmailView } from "./Components/EmailView";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -25,13 +25,15 @@ function App() {
 
   const Layout = () => {
     return (
-      
-      <div className="flex ">
+      <div className="flex h-screen">
+        {/* Sidebar stays fixed */}
         <Sidebar />
-        <span >
+        <div className="flex flex-col flex-1 overflow-hidden">
           <TopBar />
-          <EmailList />
-        </span>
+          <div className="overflow-y-scroll overflow-hidden hide-scroll flex-1">
+            <EmailList />
+          </div>
+        </div>
         <EmailView />
       </div>
     );
