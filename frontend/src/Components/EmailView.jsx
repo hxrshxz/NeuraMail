@@ -2,7 +2,7 @@ import { MessageSquare, Send, Mail } from "lucide-react"
 
 export function EmailView() {
   return (
-    <div className="flex-1 bg-[#1e1e1e] flex flex-col relative">
+    <div className="flex-1 bg-[#1e1e1e] flex flex-col relative rounded-2xl">
       {/* Upgrade Banner */}
       <div className="absolute top-4 right-4 z-10">
         <div className="bg-[#2a2a2a] rounded-lg p-4 border border-[#404040] w-72">
@@ -14,7 +14,7 @@ export function EmailView() {
       </div>
 
       {/* Empty State */}
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center ">
         <div className="text-center">
           <div className="w-20 h-20 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 mx-auto">
             <Mail className="h-10 w-10 text-[#666666]" />

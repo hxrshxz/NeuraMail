@@ -16,8 +16,8 @@ const Login = () => {
 
   const login = useGoogleLogin({
     flow: "auth-code",
-    scope: "https://mail.google.com", // <-- Add this line
-    access_type: "offline", // <-- Add this
+    scope: "https://mail.google.com",
+    access_type: "offline",
     prompt: "consent",
     onSuccess: async (response) => {
       const { code } = response;
