@@ -9,8 +9,9 @@ body {
 * {
   font-family: "Sora", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  /* font-weight: auto; */
   font-style: normal;
+  /* border: red solid 1px; */
 }
 
 body {

@@ -71,7 +71,7 @@ export function Sidebar() {
         <button className="text-gray-400 hover:text-white p-1 h-7 w-7 flex items-center ml-0 mt-2 justify-center bg-[#2c2c2c] rounded hover:cursor-pointer">
           <Plus className="h-4.5 w-4.5" />
         </button>
-        <button className="text-gray-400 hover:text-white p-1 h-8 w-8 ml-20 hover:cursor-pointer hover:bg-[#2c2c2c] rounded mt-2 flex items-center justify-center">
+        <button className="text-gray-400 hover:text-white p-1 h-8 w-8 ml-26 hover:cursor-pointer hover:bg-[#2c2c2c] rounded mt-2 flex items-center justify-center">
           <MoreHorizontal className="h-5.5 w-5.5" />
         </button>
       </div>

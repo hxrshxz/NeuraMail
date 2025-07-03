@@ -28,11 +28,13 @@ function App() {
       <div className="flex h-screen">
         {/* Sidebar stays fixed */}
         <Sidebar />
+        <div className="mr-1">
         <div className="flex flex-col flex-1 overflow-hidden">
           <TopBar />
           <div className="overflow-y-scroll overflow-hidden hide-scroll flex-1">
             <EmailList />
           </div>
+        </div>
         </div>
         <EmailView />
       </div>
