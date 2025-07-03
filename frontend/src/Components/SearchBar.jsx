@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { handleSearchModal } from "./utils/handleSearchModal";
+import { SearchModal } from "./SearchModal";
 
 export function SearchBar({ search, setSearch }) {
   const [searchWindow, setSearchWindow] = useState(false);
@@ -10,8 +10,19 @@ export function SearchBar({ search, setSearch }) {
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleSearchModal);
-    return () => window.removeEventListener("keydown", handleSearchModal);
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchWindow((prev) => !prev);
+      }
+
+      if (e.key === "Escape") {
+        setSearchWindow(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   return (
@@ -37,28 +48,28 @@ export function SearchBar({ search, setSearch }) {
       {searchWindow && (
         <>
           {/* Blurred overlay */}
-          <div
-            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
-            onClick={() => setSearchWindow(false)}
-          />
-
+          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
           {/* Modal */}
-          <div className="fixed top-1/4 left-1/2 transform -translate-x-1/2 bg-[#1f1f1f] text-white w-[90%] max-w-md rounded-xl p-6 z-50 shadow-xl">
-            <h2 className="text-lg mb-3 font-semibold">Search</h2>
-            <input
-              autoFocus
-              placeholder="Type to search..."
-              value={search}
-              onChange={handleSearch}
-              className="w-full p-2 text-sm rounded bg-[#141414] border border-gray-600 focus:outline-none"
-            />
-            <div className="mt-4 text-right">
-              <button
-                onClick={() => setSearchWindow(false)}
-                className="text-sm text-gray-400 hover:text-white"
-              >
-                Close
-              </button>
+          <div
+            className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 ${
+              searchWindow ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <div
+              className={`bg-[#1a1a1a] border border-gray-600 w-[90%] max-w-md rounded-xl shadow-xl transform transition-all duration-500
+      ${
+        searchWindow
+          ? "translate-y-0 scale-100 opacity-100"
+          : "-translate-y-5 scale-95 opacity-0"
+      }`}
+            >
+              <div className="p-4 max-h-[55vh] overflow-y-auto">
+                <SearchModal
+                  search={search}
+                  setSearch={setSearch}
+                  handleSearch={handleSearch}
+                />
+              </div>
             </div>
           </div>
         </>
