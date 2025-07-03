@@ -2,38 +2,24 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import { formatEmailTime } from "./utils";
+import { formatEmailTime } from "./utils/formatEmailTime";
 import { SearchBar } from "./SearchBar";
 import { EmailItem } from "./EmailItem";
+import {Loading} from './ui/Loading'
 
 export function EmailList() {
   const [emails, setEmails] = useState([]);
-  const [search, setSearch] = useState(""); // 1. Add search state
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  
+  let matchedSubjects = emails
+    .filter((sub) => sub.subject.includes(search))
+    .map((sub) => sub.subject);
 
-  function formatEmailTime(rawDate) {
-    const messageDate = new Date(rawDate);
-    const now = new Date();
-
-    const isSameDay =
-      messageDate.getDate() === now.getDate() &&
-      messageDate.getMonth() === now.getMonth() &&
-      messageDate.getFullYear() === now.getFullYear();
-
-    return isSameDay
-      ? messageDate.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      : messageDate.toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        });
-  }
+  console.log(matchedSubjects);
 
   useEffect(() => {
+    setLoading(true);
     const fetchEmailDetails = async () => {
       const token = localStorage.getItem("access_token");
 
@@ -85,7 +71,7 @@ export function EmailList() {
           };
         })
       );
-
+      setLoading(false);
       setEmails(messages);
     };
 
@@ -95,11 +81,15 @@ export function EmailList() {
   return (
     <div className="w-140 bg-[#1a1a1a] flex-1 flex flex-col">
       <SearchBar search={search} setSearch={setSearch} />
-      <div className="flex-1 overflow-y-auto">
-        {emails.map((email) => (
-          <EmailItem key={email.id} email={email} />
-        ))}
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="flex-1 overflow-y-auto">
+          {emails.map((email) => (
+            <EmailItem key={email.id} email={email} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
